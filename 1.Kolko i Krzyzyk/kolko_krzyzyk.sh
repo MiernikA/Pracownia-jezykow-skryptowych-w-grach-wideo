@@ -3,6 +3,7 @@
 SAVE_FILE="save_game.txt"
 board=( " " " " " " " " " " " " " " " " " " )
 current_player="X"
+vs_computer=false
 
 save_game() {
   > "$SAVE_FILE"
@@ -60,35 +61,61 @@ check_game_state() {
   return 0
 }
 
+computer_move() {
+  empty_cells=()
+  for i in "${!board[@]}"; do
+    [[ "${board[$i]}" == " " ]] && empty_cells+=($i)
+  done
+  if [[ ${#empty_cells[@]} -gt 0 ]]; then
+    index=${empty_cells[$((RANDOM % ${#empty_cells[@]}))]}
+    board[$index]="O"
+    row=$(( index / 3 + 1 ))
+    col=$(( index % 3 + 1 ))
+    echo "Komputer wykonał ruch: ${row} - ${col}"
+  fi
+}
+
+echo "Wybierz tryb gry:"
+echo "1 - Gracz vs Gracz"
+echo "2 - Gracz vs Komputer"
+read -r mode
+[[ "$mode" == "2" ]] && vs_computer=true
+
 read -r -p "Czy chcesz wczytać zapisaną grę? (t/n): " choice
 [[ "$choice" == "t" || "$choice" == "T" ]] && load_game
 
 while true; do
   print_board
-  echo "Wpisz ruch (np. 23), z - zapisz grę, q - zakończ: "
-  read -r -p "Gracz $current_player: " move
 
-  if [[ "$move" == "z" ]]; then
-    save_game
-    continue
-  elif [[ "$move" == "q" ]]; then
-    echo "Zakończono grę."
-    break
-  elif ! [[ "$move" =~ ^[1-3][1-3]$ ]]; then
-    echo "Niepoprawny ruch. Podaj dwie cyfry (1-3), np. 23."
-    continue
+  if [[ "$vs_computer" == true && "$current_player" == "O" ]]; then
+    sleep 1
+    computer_move
+  else
+    echo "Wpisz ruch (wiersz|kolumna), z - zapisz grę, q - zakończ: "
+    read -r -p "Gracz $current_player: " move
+
+    if [[ "$move" == "z" ]]; then
+      save_game
+      continue
+    elif [[ "$move" == "q" ]]; then
+      echo "Zakończono grę."
+      break
+    elif ! [[ "$move" =~ ^[1-3][1-3]$ ]]; then
+      echo "Niepoprawny ruch. Podaj dwie cyfry (1-3), np. 23."
+      continue
+    fi
+
+    row=$(( ${move:0:1} - 1 ))    
+    col=$(( ${move:1:1} - 1 ))
+    index=$(( row * 3 + col ))
+
+    if [[ "${board[$index]}" != " " ]]; then
+      echo "To pole jest już zajęte. Wybierz inne."
+      continue
+    fi
+
+    board[$index]=$current_player
   fi
-
-  row=$(( ${move:0:1} - 1 ))    
-  col=$(( ${move:1:1} - 1 ))
-  index=$(( row * 3 + col ))
-
-  if [[ "${board[$index]}" != " " ]]; then
-    echo "To pole jest już zajęte. Wybierz inne."
-    continue
-  fi
-
-  board[$index]=$current_player
 
   if check_game_state; then
     print_board
