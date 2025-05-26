@@ -6,8 +6,5 @@
 
 :white_check_mark: 4.0 wymaganie 3 [Link do commita 3](https://github.com/kprzystalski/workshop_template/commit/hash)
 
-:x: 4.5 wymaganie 4 [Link do commita 4](https://github.com/kprzystalski/workshop_template/commit/hash)
-
-:x: 5.0 wymaganie 5 [Link do commita 5](https://github.com/kprzystalski/workshop_template/commit/hash)
 
 Kod: 1.Kolko i Krzyzyk
