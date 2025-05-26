@@ -1,7 +1,34 @@
 #!/bin/bash
 
+SAVE_FILE="save_game.txt"
 board=( " " " " " " " " " " " " " " " " " " )
 current_player="X"
+
+save_game() {
+  > "$SAVE_FILE"
+  for i in "${!board[@]}"; do
+    echo "$((i+1)): ${board[$i]}" >> "$SAVE_FILE"
+  done
+  echo "player: $current_player" >> "$SAVE_FILE"
+  echo "Gra została zapisana."
+}
+
+load_game() {
+  if [[ -f "$SAVE_FILE" ]]; then
+    while IFS= read -r line; do
+      if [[ "$line" =~ ^([1-9]):[[:space:]]*(.)$ ]]; then
+        index=$(( ${BASH_REMATCH[1]} - 1 ))
+        value="${BASH_REMATCH[2]}"
+        board[$index]="$value"
+      elif [[ "$line" =~ ^player:[[:space:]]*(.)$ ]]; then
+        current_player="${BASH_REMATCH[1]}"
+      fi
+    done < "$SAVE_FILE"
+    echo "Gra została wczytana."
+  else
+    echo "Brak zapisanej gry."
+  fi
+}
 
 print_board() {
   echo
@@ -33,12 +60,22 @@ check_game_state() {
   return 0
 }
 
+read -r -p "Czy chcesz wczytać zapisaną grę? (t/n): " choice
+[[ "$choice" == "t" || "$choice" == "T" ]] && load_game
+
 while true; do
   print_board
-  read -r -p "Gracz $current_player, wybierz pole (wiersz i kolumna): " move
+  echo "Wpisz ruch (np. 23), z - zapisz grę, q - zakończ: "
+  read -r -p "Gracz $current_player: " move
 
-  if ! [[ "$move" =~ ^[1-3][1-3]$ ]]; then
-    echo "Niepoprawny ruch. Podaj dwie cyfry (1-3) np. 23 dla 2. wiersza i 3. kolumny."
+  if [[ "$move" == "z" ]]; then
+    save_game
+    continue
+  elif [[ "$move" == "q" ]]; then
+    echo "Zakończono grę."
+    break
+  elif ! [[ "$move" =~ ^[1-3][1-3]$ ]]; then
+    echo "Niepoprawny ruch. Podaj dwie cyfry (1-3), np. 23."
     continue
   fi
 
@@ -55,6 +92,7 @@ while true; do
 
   if check_game_state; then
     print_board
+    rm -f "$SAVE_FILE"
     break
   fi
 
