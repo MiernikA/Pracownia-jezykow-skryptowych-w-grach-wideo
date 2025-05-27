@@ -1,6 +1,6 @@
 local config = require("config")
 local board = require("board.board")
-local piece = require("block.block")
+local block = require("block.block")
 local input = require("input")
 
 local fallTimer = 0
@@ -17,7 +17,7 @@ function love.load()
     love.graphics.setFont(fontLarge)
 
     board.init()
-    piece.spawn()
+    block.spawn()
 
     input.setRefs(isDownHeld, gameOver)
 end
@@ -29,7 +29,7 @@ function love.update(dt)
 
     fallTimer = fallTimer + dt
     local interval = isDownHeld.value and board.getFallInterval() / 15 or board.getFallInterval()
-    local current = piece.current()
+    local current = block.current()
 
     if fallTimer >= interval then
         if board.canMove(current, 0, 1) then
@@ -40,7 +40,7 @@ function love.update(dt)
             if board.isGameOver() then
                 gameOver.value = true
             else
-                piece.spawn()
+                block.spawn()
             end
         end
         fallTimer = 0
@@ -57,7 +57,7 @@ end
 
 function love.draw()
     local boardData = board.get()
-    local current = piece.current()
+    local current = block.current()
 
     love.graphics.setColor(0.02, 0.02, 0.12)
     love.graphics.rectangle("fill", 0, 0, config.cols * config.cellSize, config.rows * config.cellSize)
@@ -94,7 +94,7 @@ function love.draw()
     love.graphics.print("NEXT", offsetX + (boxWidth - fontLarge:getWidth("NEXT")) / 2, 150)
     love.graphics.rectangle("line", offsetX, 190, boxWidth, 160)
 
-    local next = piece.next()
+    local next = block.next()
     if next then
         local shapeWidth = #next.shape[1]
         local shapeHeight = #next.shape
