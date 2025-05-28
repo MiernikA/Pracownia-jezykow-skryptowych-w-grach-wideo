@@ -85,4 +85,20 @@ function board.isGameOver()
     return gameOver
 end
 
+
+-- saving and loading --
+
+function board.load(savedBoard)
+    for y = 1, config.rows do
+        for x = 1, config.cols do
+            board[y][x] = savedBoard[y][x]
+        end
+    end
+end
+
+function board.setPoints(p)
+    points = p
+end
+
+
 return board

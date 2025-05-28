@@ -16,8 +16,17 @@ local function spawn()
     nextBlock = generateBlock()
 end
 
+
+-- loading --
+
+local function load(currentBlock, next)
+    current = currentBlock
+    nextBlock = next
+end
+
 return {
     current = function() return current end,
     next = function() return nextBlock end,
-    spawn = spawn
+    spawn = spawn,
+    load = load
 }

@@ -1,7 +1,12 @@
 local config = require("config")
 local board = require("board.board")
 local block = require("block.block")
-local input = require("input")
+local input = require("events.input")
+local saveGame = require("events.save_game")
+ 
+local isPaused = false
+local message = ""
+local messageTimer = 0
 
 local fallTimer = 0
 local fontLarge
@@ -23,6 +28,18 @@ function love.load()
 end
 
 function love.update(dt)
+
+    if messageTimer > 0 then
+        messageTimer = messageTimer - dt
+        if messageTimer <= 0 then
+            message = ""
+        end
+    end
+
+    if isPaused or gameOver.value then
+        return
+    end
+    
     if gameOver.value then
         return
     end
@@ -48,8 +65,50 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
+
+    if key == "p" then
+        isPaused = not isPaused
+    end
+
+    -- Save or Load only on paused game --
+    if isPaused then
+        if key == "s" then 
+            local state = {
+                board = board.get(),
+                current = block.current(),
+                next = block.next(),
+                points = board.getPoints(),
+                fallTimer = fallTimer,
+                gameOver = gameOver.value
+            }
+            saveGame.save(state)
+            message = "Game saved"
+            messageTimer = 2
+        elseif key == "l" then  
+            local loaded = saveGame.load()
+            if loaded then
+                board.load(loaded.board)
+                block.load(loaded.current, loaded.next)
+                board.setPoints(loaded.points)
+                fallTimer = loaded.fallTimer
+                gameOver.value = loaded.gameOver
+                message = "Game loaded"
+                messageTimer = 2
+            else
+                message = "Brak zapisu"
+                messageTimer = 2
+            end
+        end
+        return
+    end
+
     input.keypressed(key)
+
+    if key == "return" and gameOver.value then
+        love.load() 
+    end
 end
+
 
 function love.keyreleased(key)
     input.keyreleased(key)
@@ -128,6 +187,20 @@ function love.draw()
             love.graphics.print(line, (config.cols * config.cellSize - w) / 2, config.rows * config.cellSize / 2 + (i - 1) * (fontHeight + 5))
         end
     end
+
+    
+    if isPaused then
+        love.graphics.setColor(1, 1, 1)
+        local pauseText = "PAUSE"
+        local pauseW = fontLarge:getWidth(pauseText)
+        love.graphics.print(pauseText, (config.cols * config.cellSize - pauseW) / 2, config.rows * config.cellSize / 2 - 40)
+
+        if message ~= "" then
+            local msgW = fontLarge:getWidth(message)
+            love.graphics.print(message, (config.cols * config.cellSize - msgW) / 2, config.rows * config.cellSize / 2)
+        end
+    end
+    
 end
 
 function drawBlockWithShade(x, y, color)
@@ -136,3 +209,4 @@ function drawBlockWithShade(x, y, color)
     love.graphics.setColor(0, 0, 0, 0.3)
     love.graphics.rectangle("line", x, y, config.cellSize, config.cellSize)
 end
+
