@@ -1,6 +1,11 @@
 local config = require("config")
 
 local lineLogic = {}
+local pointsSound = nil
+
+function lineLogic.setPointsSound(sound)
+    pointsSound = sound
+end
 
 local function findFullLines(board)
     local fullLines = {}
@@ -23,6 +28,13 @@ end
 
 local function removeLines(board, fullLines)
     local fullSet = {}
+
+    if pointsSound then
+        pointsSound:setVolume(0.4)
+        pointsSound:stop()
+        pointsSound:play()
+    end
+
     for _, y in ipairs(fullLines) do
         fullSet[y] = true
     end

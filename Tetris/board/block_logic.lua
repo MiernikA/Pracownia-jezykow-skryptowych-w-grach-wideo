@@ -1,6 +1,10 @@
 local config = require("config")
-
 local blockLogic = {}
+local placeSound = nil
+
+function blockLogic.setPlaceSound(sound)
+    placeSound = sound
+end
 
 function blockLogic.lockBlock(board, block)
     for y = 1, #block.shape do
@@ -13,6 +17,13 @@ function blockLogic.lockBlock(board, block)
                 end
             end
         end
+    end
+
+    if placeSound then
+        placeSound:setVolume(0.3)
+        placeSound:stop()
+        placeSound:seek(0.2)
+        placeSound:play()
     end
 end
 

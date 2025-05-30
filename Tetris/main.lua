@@ -3,13 +3,18 @@ local board = require("board.board")
 local block = require("block.block")
 local input = require("events.input")
 local saveGame = require("events.save_game")
- 
+local lineLogic = require("board.line_logic")
+local blockLogic = require("board.block_logic")
+
+local placeSound = love.audio.newSource("assets/block.ogg", "static")
+local pointsSound = love.audio.newSource("assets/points.ogg", "static")
+local themeSound = love.audio.newSource("assets/tetris_theme.ogg", "stream")
+
 local isPaused = false
 local message = ""
 local messageTimer = 0
-
 local fallTimer = 0
-local fontLarge
+local fontLarge = nil
 
 local isDownHeld = { value = false }
 local gameOver = { value = false }
@@ -21,6 +26,13 @@ function love.load()
     fontLarge = love.graphics.newFont(28)
     love.graphics.setFont(fontLarge)
 
+    themeSound:setVolume(0.3)
+    themeSound:setLooping(true)
+    themeSound:play()
+
+    input.setMusic(themeSound)
+    blockLogic.setPlaceSound(placeSound)
+    lineLogic.setPointsSound(pointsSound)
     board.init()
     block.spawn()
 
@@ -68,6 +80,11 @@ function love.keypressed(key)
 
     if key == "p" then
         isPaused = not isPaused
+        if isPaused then
+            themeSound:pause()
+        else
+            themeSound:play()
+        end
     end
 
     -- Save or Load only on paused game --
@@ -95,7 +112,7 @@ function love.keypressed(key)
                 message = "Game loaded"
                 messageTimer = 2
             else
-                message = "Brak zapisu"
+                message = "No save"
                 messageTimer = 2
             end
         end
@@ -180,6 +197,7 @@ function love.draw()
         love.graphics.setColor(1, 0, 0, 0.8)
         love.graphics.rectangle("fill", 0, 0, config.cols * config.cellSize, config.rows * config.cellSize)
         love.graphics.setColor(1, 1, 1)
+        themeSound:pause()
         local lines = { "GAME OVER", "Press Enter to Restart" }
         local fontHeight = fontLarge:getHeight()
         for i, line in ipairs(lines) do

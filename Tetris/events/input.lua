@@ -5,6 +5,11 @@ local input = {}
 
 local isDownHeldRef = nil
 local gameOverRef = nil
+local music = nil
+
+function input.setMusic(m)
+    music = m
+end
 
 local function rotateShape(shape)
     local rotated = {}
@@ -27,6 +32,10 @@ function input.keypressed(key)
         if key == "return" then
             board.init()
             piece.spawn()
+            if music then
+                music:seek(0)
+                music:play()
+            end
             gameOverRef.value = false
         end
         return
