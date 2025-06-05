@@ -6,7 +6,7 @@ save_game() {
     echo "$((i+1)): ${board[$i]}" >> "$SAVE_FILE"
   done
   echo "player: $current_player" >> "$SAVE_FILE"
-  echo "Gra została zapisana."
+  echo "Game has been saved."
 }
 
 load_game() {
@@ -20,8 +20,8 @@ load_game() {
         current_player="${BASH_REMATCH[1]}"
       fi
     done < "$SAVE_FILE"
-    echo "Gra została wczytana."
+    echo "Game has been loaded."
   else
-    echo "Brak zapisanej gry."
+    echo "No saved game found."
   fi
 }

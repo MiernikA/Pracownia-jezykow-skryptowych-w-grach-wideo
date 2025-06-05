@@ -2,7 +2,7 @@ check_game_state() {
   for combo in "0 1 2" "3 4 5" "6 7 8" "0 3 6" "1 4 7" "2 5 8" "0 4 8" "2 4 6"; do
     set -- $combo
     if [[ "${board[$1]}" != " " && "${board[$1]}" == "${board[$2]}" && "${board[$2]}" == "${board[$3]}" ]]; then
-      echo "Gracz $current_player wygrał!"
+      echo "Player $current_player has won!"
       return 0
     fi
   done
@@ -11,7 +11,7 @@ check_game_state() {
     [[ "$cell" == " " ]] && return 1
   done
 
-  echo "Remis!"
+  echo "It's a draw!"
   return 0
 }
 
@@ -25,6 +25,6 @@ computer_move() {
     board[$index]="O"
     row=$(( index / 3 + 1 ))
     col=$(( index % 3 + 1 ))
-    echo "Komputer wykonał ruch: ${row} - ${col}"
+    echo "Computer moved to: ${row} - ${col}"
   fi
 }
