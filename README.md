@@ -33,11 +33,11 @@ Kod: MinecraftCastle
 ---
 **Zadanie 3** Tetris  w Lua
 
-:white_check_mark: 3.0 - Postawowa wersja dekstopowa z obsługą na klawiaturze - minimum 4 rodzaje klocków [Link do commita 1](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/30e2767766535f97a89c5665cd9bf04e790995d9)
+:white_check_mark: 3.0 - Postawowa wersja dekstopowa z obsługą na klawiaturze - minimum 4 rodzaje klocków [commit](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/30e2767766535f97a89c5665cd9bf04e790995d9)
 
-:white_check_mark: 3.5 - Zapis i odczyt gier [Link do commita 2](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/7bdf40a4b7e66ec263a835bd0bc691568fa1ec2a)
+:white_check_mark: 3.5 - Zapis i odczyt gier [commit](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/7bdf40a4b7e66ec263a835bd0bc691568fa1ec2a)
 
-:white_check_mark: 4.0 - Dodanie efektów dźwiękowych przy akcjach [Link do commita 3](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/2a6387d2fe1fb01938b243fe2047b04e858808ec)
+:white_check_mark: 4.0 - Dodanie efektów dźwiękowych przy akcjach [commit](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/2a6387d2fe1fb01938b243fe2047b04e858808ec)
 
 :x: 4.5 - Dodanie animacji przy zbijaniu klocków
 
