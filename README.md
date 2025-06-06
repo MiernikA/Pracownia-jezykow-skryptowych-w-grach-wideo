@@ -1,13 +1,16 @@
 **Zadanie 1** Kolko i Krzyzyk
 
-:white_check_mark: 3.0 - działa w trybie gry turowej [Link do commita 1](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/1daedaa2c95b1ed4972ca0d626a4b1783fbb8a74)
+:white_check_mark: 3.0 - działa w trybie gry turowej - [commit](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/1daedaa2c95b1ed4972ca0d626a4b1783fbb8a74)
 
-:white_check_mark: 4.0 - pozwala na zapis i odtwarzanie przerwanej gry (save game) [Link do commita2 ](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/c7e9a488114a6eb558a2aaef550ac24e726bc4bf)
+:white_check_mark: 4.0 - pozwala na zapis i odtwarzanie przerwanej gry (save game) - [commit](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/c7e9a488114a6eb558a2aaef550ac24e726bc4bf)
 
-:white_check_mark: 5.0 - pozwala na grę z komputerem [Link do commita 3](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/c849f5e3a56af5ff7474c5e31601ea5e5ce47781)
+:white_check_mark: 5.0 - pozwala na grę z komputerem - [commit](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/c849f5e3a56af5ff7474c5e31601ea5e5ce47781)
+
 
 
 Kod: TicTacToe
+
+---
 
 **Zadanie 2** Zamek Minecraft
 
@@ -27,7 +30,7 @@ zewnątrz
 
 Kod: MinecraftCastle
 
-
+---
 **Zadanie 3** Tetris  w Lua
 
 :white_check_mark: 3.0 - Postawowa wersja dekstopowa z obsługą na klawiaturze - minimum 4 rodzaje klocków [Link do commita 1](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/30e2767766535f97a89c5665cd9bf04e790995d9)
@@ -43,7 +46,7 @@ Kod: MinecraftCastle
 
 Kod: TetrisLua
 
-
+---
 **Zadanie 4** Mario w Ruby2d
 
 :white_check_mark: 3.0 - Należy stworzyć jeden poziom z przeszkodami oraz dziurami w które można wpaść i zginąć
@@ -58,9 +61,9 @@ Kod: TetrisLua
 
 [Commit ze wszystkimi punktami](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/dcbed8f85ba250ee18f8f3e07fc6be37429d24b1)
 
-
 Kod: MarioRuby
 
+---
 **Zadanie 5** Czatbot eSport LLM
 
 :white_check_mark: 3.0 - Nalezy zaimplementować minimum 3 ścieżki (prompt chains) turnieju e-sportowego
@@ -73,9 +76,9 @@ Kod: MarioRuby
 
 :white_check_mark: 5.0 - Bot wyświetla wszystkie drużyny, stan rozgrywek oraz wszystkichzawodników w rozgrywkach
 
-[Commit ze wszystkimi punktami](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/48d14bb98246cd97d2ec40fadb05f8f92e661c1e)
+[Commit ze wszystkimi punktami](https://github.com/MiernikA/Pracownia-jezykow-skryptowych-w-grach-wideo/commit/9e81c45046d80891b609c89e9eef7f16f9eefa23)
 
 
 Kod: eSportChatBot
 
-
+---
